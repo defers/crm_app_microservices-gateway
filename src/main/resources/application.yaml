@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: dev
+---
+
+spring:
+  application:
+    name: crm-gateway
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    gateway:
+      routes:
+        - id: crm-customers
+          uri: lb://crm-customers
+          predicates:
+            - Path=/api/v1/customers/**
+        - id: crm-orders
+          uri: lb://crm-orders
+          predicates:
+            - Path=/api/v1/orders/**
+server:
+  port: 3507
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

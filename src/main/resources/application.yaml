@@ -15,7 +15,7 @@ spring:
         - id: crm-customers
           uri: lb://crm-customers
           predicates:
-            - Path=/api/v1/customers/**
+            - Path=/api/v1/customers/**, /api/v1/currencies/**
         - id: crm-orders
           uri: lb://crm-orders
           predicates:
